@@ -31,6 +31,17 @@ function NewIssuePage() {
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      await axios.post("/api/issues", data);
+      router.push("/issues");
+    } catch (error) {
+      setIsSubmitting(false);
+      setError("Failed to create issue. Please try again.");
+    }
+  })
+
   return (
     <div className="space-y-3 max-w-xl">
       {error && (
@@ -40,16 +51,7 @@ function NewIssuePage() {
       )}
       <form
         className="max-w-xl space-y-3 "
-        onSubmit={handleSubmit(async (data) => {
-          try {
-            setIsSubmitting(true);
-            await axios.post("/api/issues", data);
-            router.push("/issues");
-          } catch (error) {
-            setIsSubmitting(false);
-            setError("Failed to create issue. Please try again.");
-          }
-        })}
+        onSubmit={onSubmit}
       >
         <TextField.Root placeholder="Title" {...register("title")} />
         <ErrorMessage>{errors.title?.message}</ErrorMessage>
