@@ -1,4 +1,5 @@
 import "@radix-ui/themes/styles.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import "./theme-config.css";
 import "./globals.css";
 import type { Metadata } from "next";

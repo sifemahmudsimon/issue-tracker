@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { Card, Flex, Heading, Text } from "@radix-ui/themes";
 import delay from "delay";
 import { notFound } from "next/navigation";
-import React from "react";
 import ReactMarkdown from "react-markdown";
 
 interface Props {
@@ -21,6 +20,8 @@ async function IssueDetailPage({ params }: Props) {
   if (!issue) {
     return notFound();
   }
+
+  await delay(1500); // Simulate loading delay
   return (
     <div>
       <Heading>{issue.title}</Heading>
