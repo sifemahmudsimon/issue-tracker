@@ -35,11 +35,17 @@ function IssueForm({ issue }: { issue?: Issue }) {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-      await axios.post("/api/issues", data);
-      router.push("/issues");
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+        router.push(`/issues/${issue.id}`);
+        return;
+      } else {
+        await axios.post("/api/issues", data);
+        router.push("/issues");
+      }
     } catch (error) {
       setIsSubmitting(false);
-      setError("Failed to create issue. Please try again.");
+      setError("Failed! Please try again.");
     }
   });
 
@@ -68,7 +74,7 @@ function IssueForm({ issue }: { issue?: Issue }) {
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
 
         <Button disabled={isSubmitting}>
-          Submit New Issue {isSubmitting && <Spinner />}
+          {issue ? "Update issue" : "Add Issue"} {isSubmitting && <Spinner />}
         </Button>
       </form>
     </div>
