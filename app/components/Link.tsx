@@ -1,6 +1,6 @@
 import React from "react";
 import NextLink from "next/link";
-import { Link as RadiaxLink } from "@radix-ui/themes";
+import { Link as RadixLink } from "@radix-ui/themes";
 
 interface Props {
   href: string;
@@ -9,10 +9,9 @@ interface Props {
 
 function Link({ href, children }: Props) {
   return (
-    <NextLink href={href} passHref legacyBehavior>
-      <RadiaxLink>{children}</RadiaxLink>
-    </NextLink>
+    <RadixLink asChild>
+      <NextLink href={href}>{children}</NextLink>
+    </RadixLink>
   );
 }
-
 export default Link;
