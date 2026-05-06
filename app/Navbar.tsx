@@ -15,6 +15,7 @@ import {
   Spinner,
   Text,
 } from "@radix-ui/themes";
+import Skeleton from "react-loading-skeleton";
 
 const Navbar = () => {
   return (
@@ -65,16 +66,7 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
-  if (status === "loading")
-    return (
-      <Flex
-        justify={"center"}
-        align={"center"}
-        className="border border-zinc-300 cursor-pointer rounded-full h-8 w-8"
-      >
-        <Spinner />
-      </Flex>
-    );
+  if (status === "loading") return <Skeleton width={"3rem"} />;
   if (status === "unauthenticated")
     return (
       <Link className="nav-link" href={"/api/auth/signin"}>
