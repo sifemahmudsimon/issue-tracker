@@ -8,6 +8,7 @@ import "./globals.css";
 import { Container, Theme } from "@radix-ui/themes";
 import Navbar from "./Navbar";
 import AuthProvider from "./auth/Provider";
+import QueryClientProvider from "./QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,14 +38,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={`h-full antialiased`}>
       <body className={`${inter.variable} min-h-full flex flex-col`}>
-        <AuthProvider>
-          <Theme accentColor="purple">
-            <Navbar />
-            <main className="flex-1 p-5">
-              <Container>{children}</Container>
-            </main>
-          </Theme>
-        </AuthProvider>
+        <QueryClientProvider>
+          <AuthProvider>
+            <Theme accentColor="purple">
+              <Navbar />
+              <main className="flex-1 p-5">
+                <Container>{children}</Container>
+              </main>
+            </Theme>
+          </AuthProvider>
+        </QueryClientProvider>
       </body>
     </html>
   );
