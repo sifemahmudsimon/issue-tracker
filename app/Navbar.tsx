@@ -75,6 +75,7 @@ const Navbar = () => {
                     size="2"
                     radius="full"
                     className="border border-zinc-300 cursor-pointer"
+                    referrerPolicy="no-referrer"
                   />
                 </DropdownMenu.Trigger>
                 <DropdownMenu.Content>
