@@ -9,7 +9,7 @@ interface Props {
   closed: number;
 }
 
-function IssueSumarry({ open, inProgress, closed }: Props) {
+function IssueSummary({ open, inProgress, closed }: Props) {
   const containers: { label: string; value: number; status: Status }[] = [
     { label: "Open Issues", value: open, status: "OPEN" },
     { label: "In-progress Issues", value: inProgress, status: "IN_PROGRESS" },
@@ -36,4 +36,4 @@ function IssueSumarry({ open, inProgress, closed }: Props) {
   );
 }
 
-export default IssueSumarry;
+export default IssueSummary;
