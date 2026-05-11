@@ -12,6 +12,8 @@ import AssigneeSelect from "./AssigneeSelect";
 import { Metadata } from "next";
 import { describe } from "zod/v4/core";
 import { cache } from "react";
+import { Status } from "@prisma/client";
+import StatusSelect from "./StatusSelect";
 
 interface Props {
   params: {
@@ -49,6 +51,7 @@ async function IssueDetailPage({ params }: Props) {
         <Box>
           <Flex direction={"column"} gap={"4"}>
             <AssigneeSelect issue={issue} />
+            <StatusSelect issue={issue} />
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
           </Flex>
