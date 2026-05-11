@@ -12,7 +12,6 @@ import {
   Container,
   DropdownMenu,
   Flex,
-  Spinner,
   Text,
 } from "@radix-ui/themes";
 import Skeleton from "react-loading-skeleton";
@@ -66,6 +65,9 @@ const NavLinks = () => {
 const AuthStatus = () => {
   const { status, data: session } = useSession();
 
+  console.log("session!.user!.image!", session?.user?.image);
+  console.log("session", session?.user);
+
   if (status === "loading") return <Skeleton width={"3rem"} />;
   if (status === "unauthenticated")
     return (
@@ -73,6 +75,8 @@ const AuthStatus = () => {
         Login
       </Link>
     );
+
+  if (!session?.user) return null;
   return (
     <Box>
       <DropdownMenu.Root>
@@ -83,7 +87,7 @@ const AuthStatus = () => {
             size="2"
             radius="full"
             className="border border-zinc-300 cursor-pointer"
-            referrerPolicy="no-referrer"
+            // referrerPolicy="no-referrer"
           />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
