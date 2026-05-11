@@ -11,6 +11,7 @@ import authOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
 import { Metadata } from "next";
 import { describe } from "zod/v4/core";
+import { cache } from "react";
 
 interface Props {
   params: {
@@ -18,15 +19,22 @@ interface Props {
   };
 }
 
+const fetchUser = cache((issueId: number) =>
+  prisma.issue.findUnique({
+    where: { id: issueId },
+  })
+);
+
 async function IssueDetailPage({ params }: Props) {
   const session = await getServerSession(authOptions);
 
   console.log("Session:", session);
 
   const { id } = await params;
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
-  });
+  const issue = await fetchUser(parseInt(id));
+  // const issue = await prisma.issue.findUnique({
+  //   where: { id: parseInt(id) },
+  // });
 
   if (!issue) {
     return notFound();
@@ -52,9 +60,7 @@ async function IssueDetailPage({ params }: Props) {
 
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
-  const issue = await prisma.issue.findUnique({
-    where: { id: parseInt(id) },
-  });
+  const issue = await fetchUser(parseInt(id));
 
   return {
     title: issue?.title,
